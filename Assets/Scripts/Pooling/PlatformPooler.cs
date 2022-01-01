@@ -37,9 +37,7 @@ public class PlatformPooler : MonoBehaviour, IObjectPooler
         }
         var index = GetRandomPlatformIndex(PooledPlatforms.Count);
         var pooledPlatform = PooledPlatforms[index];
-        Debug.LogError("PRZED" + PooledPlatforms.Count);
         PooledPlatforms.RemoveAt(index);
-        Debug.LogError("PO" + PooledPlatforms.Count);
         pooledPlatform.transform.position -= pooledPlatform.StartOfPlatform.position - transform.position;
         pooledPlatform.gameObject.SetActive(true);
         return pooledPlatform; 
