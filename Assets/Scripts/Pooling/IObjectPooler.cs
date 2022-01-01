@@ -3,5 +3,6 @@ using UnityEngine;
 public interface IObjectPooler
 { 
     void InstantiateObjectsToPool();
-    void GetRandomObjectFromPool(Transform position);
+    void AddElementToPool(int index);
+    void AddRandomElementToPool();
 }

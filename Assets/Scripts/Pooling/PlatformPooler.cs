@@ -8,29 +8,41 @@ public class PlatformPooler : MonoBehaviour, IObjectPooler
     [SerializeField]
     private int amountOfObjectsToPool;
 
-    private List<Platform> pooledPlatforms = new List<Platform>();    
+    private List<Platform> pooledPlatforms = new List<Platform>();
+    private int numberOfPlatformTypes;
 
     public List<Platform> PooledPlatforms { get => pooledPlatforms; }
+    public int NumberOfPlatformTypes { get => numberOfPlatformTypes; set => numberOfPlatformTypes = value; }
 
+    private void Awake()
+    {
+        NumberOfPlatformTypes = platformsToPool.Count;
+    }
     public void InstantiateObjectsToPool()
     {
         for (int i = 0; i < platformsToPool.Count; i++)
         {
             for (int j = 0; j < amountOfObjectsToPool; j++)
             {
-                var pooledPlatform = Instantiate(platformsToPool[i], transform);
-                pooledPlatform.gameObject.SetActive(false);
-                PooledPlatforms.Add(pooledPlatform);
+                AddElementToPool(i);
             }
         }
     }
 
-    public void GetRandomObjectFromPool(Transform position)
+    public Platform GetRandomObjectFromPool(Transform transform)
     {
-        int maxNumber = PooledPlatforms.Count;
-        PooledPlatforms.RemoveAt(GetRandomNumber(maxNumber));
-        var pooledPlatform = PooledPlatforms[GetRandomNumber(maxNumber)];
-        pooledPlatform.StartOfPlatform = position;
+        if(PooledPlatforms.Count < 1)
+        {
+            AddRandomElementToPool();
+        }
+        var index = GetRandomPlatformIndex(PooledPlatforms.Count);
+        var pooledPlatform = PooledPlatforms[index];
+        Debug.LogError("PRZED" + PooledPlatforms.Count);
+        PooledPlatforms.RemoveAt(index);
+        Debug.LogError("PO" + PooledPlatforms.Count);
+        pooledPlatform.transform.position -= pooledPlatform.StartOfPlatform.position - transform.position;
+        pooledPlatform.gameObject.SetActive(true);
+        return pooledPlatform; 
     }
 
     public void ReturnObjectToPool(Platform platform)
@@ -39,9 +51,24 @@ public class PlatformPooler : MonoBehaviour, IObjectPooler
         platform.gameObject.SetActive(false);
     }
 
-    private int GetRandomNumber(int max)
+    public void AddElementToPool(int index)
     {
-        return Random.Range(0, max);
+        var pooledPlatform = Instantiate(platformsToPool[index], transform);
+        pooledPlatform.gameObject.SetActive(false);
+        PooledPlatforms.Add(pooledPlatform);
+    }
+
+    public void AddRandomElementToPool()
+    {
+        var pooledPlatform = Instantiate(platformsToPool[GetRandomPlatformIndex(platformsToPool.Count)], transform);
+        pooledPlatform.gameObject.SetActive(false);
+        PooledPlatforms.Add(pooledPlatform);
+    }
+
+    private int GetRandomPlatformIndex(int max)
+    {
+        int index = Random.Range(0, max);
+        return index;
     }
 
 }
