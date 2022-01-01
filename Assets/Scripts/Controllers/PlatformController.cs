@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlatformController : MonoBehaviour
@@ -12,6 +13,8 @@ public class PlatformController : MonoBehaviour
     private Platform startingPlatform;
     [SerializeField]
     private float platformSpeed;
+    [SerializeField]
+    private Camera mainCamera;
 
     private List<Platform> platformElements = new List<Platform>();
     private Vector3 move = new Vector3();
@@ -43,9 +46,15 @@ public class PlatformController : MonoBehaviour
 
     private void MovePlatform()
     {
-        foreach (Platform platform in platformElements)
+        foreach (Platform pooledPlatform in platformElements)
         {
-            platform.gameObject.transform.position += move;
+            pooledPlatform.gameObject.transform.position += move;
+            if(pooledPlatform.EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)
+            {
+                platformPooler.ReturnObjectToPool(pooledPlatform);
+                var platform = platformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
+                platformElements.Add(platform);
+            }
         }
     }
 
