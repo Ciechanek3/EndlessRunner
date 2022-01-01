@@ -32,6 +32,6 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         Vector3 movement = new Vector3(playerInput.HorizontalMovement, 0.0f, playerInput.VerticalMovement);
-        rb.AddForce(movement * moveSpeed, ForceMode.Acceleration);
+        rb.AddForce(-movement * moveSpeed, ForceMode.Acceleration);
     }
 }
