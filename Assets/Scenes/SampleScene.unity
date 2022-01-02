@@ -523,6 +523,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2885676329317300, guid: 56277c19d7ea9054bbf1dd1b2ed75ff0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7154507098539798981, guid: 56277c19d7ea9054bbf1dd1b2ed75ff0, type: 3}
       propertyPath: m_Name
       value: StartingPlatform
@@ -733,9 +737,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformPooler: {fileID: 1454202789}
-  platformsEnabled: 3
+  platformsEnabled: 8
   startingPlatform: {fileID: 1050648624}
-  platformSpeed: 0.5
+  platformSpeed: 10
   mainCamera: {fileID: 963194227}
 --- !u!4 &1454202788
 Transform:
@@ -766,4 +770,4 @@ MonoBehaviour:
   platformsToPool:
   - {fileID: 6178485295926861418, guid: 48e384d27a9685f46a52ce44a38abc4b, type: 3}
   - {fileID: 6178485295926861418, guid: 48e384d27a9685f46a52ce44a38abc4b, type: 3}
-  amountOfObjectsToPool: 3
+  amountOfObjectsToPool: 5
