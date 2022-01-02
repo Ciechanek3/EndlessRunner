@@ -19,8 +19,6 @@ public class PlatformController : MonoBehaviour
     private List<Platform> platformElements = new List<Platform>();
     private Vector3 move = new Vector3();
 
-
-
     private void Awake()
     {
         platformPooler.InstantiateObjectsToPool();
@@ -30,13 +28,12 @@ public class PlatformController : MonoBehaviour
     private void Start()
     {
         platformElements.Add(startingPlatform);
-        var firstPlatform = platformPooler.GetRandomObjectFromPool(startingPlatform.EndOfPlatform);
-        platformElements.Add(firstPlatform);
-        for (int i = 1; i < platformsEnabled; i++)
+        for (int i = 1; i <= platformsEnabled; i++)
         {
             var platform = platformPooler.GetRandomObjectFromPool(platformElements[i - 1].EndOfPlatform);
             platformElements.Add(platform);
         }
+        platformElements.Remove(startingPlatform);
     }
 
     private void Update()
@@ -46,12 +43,13 @@ public class PlatformController : MonoBehaviour
 
     private void MovePlatform()
     {
-        foreach (Platform pooledPlatform in platformElements)
+        for (int i = 0; i < platformElements.Count; i++)
         {
-            pooledPlatform.gameObject.transform.position += move;
-            if(pooledPlatform.EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)
-            {
-                platformPooler.ReturnObjectToPool(pooledPlatform);
+            platformElements[i].gameObject.transform.Translate(platformElements[i].transform.forward * Time.deltaTime * platformSpeed);
+            if (platformElements[i].EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)
+            {               
+                platformPooler.ReturnObjectToPool(platformElements[i]);
+                platformElements.RemoveAt(i);
                 var platform = platformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
                 platformElements.Add(platform);
             }
