@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ public class PlatformController : MonoBehaviour
     private float platformSpeed;
     [SerializeField]
     private Camera mainCamera;
+
+    public event Action OnPlatformDisabled;
 
     private List<Platform> platformElements = new List<Platform>();
     private Vector3 move = new Vector3();
@@ -47,11 +50,12 @@ public class PlatformController : MonoBehaviour
         {
             platformElements[i].gameObject.transform.Translate(platformElements[i].transform.forward * Time.deltaTime * platformSpeed);
             if (platformElements[i].EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)
-            {               
+            {
                 platformPooler.ReturnObjectToPool(platformElements[i]);
                 platformElements.RemoveAt(i);
                 var platform = platformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
                 platformElements.Add(platform);
+                OnPlatformDisabled.Invoke();
             }
         }
     }
