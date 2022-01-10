@@ -18,8 +18,8 @@ namespace Biome
             var states = new Dictionary<Type, BaseState>()
         {
             { typeof(DefaultBiome), GetComponent<DefaultBiome>() },
-            { typeof(LavaBiome), GetComponent<LavaBiome>() },
-            { typeof(WaterBiome), GetComponent<WaterBiome>() }
+            { typeof(WaterBiome), GetComponent<WaterBiome>() },
+            { typeof(LavaBiome), GetComponent<LavaBiome>() }              
         };
             StateMachineManager stateMachineManager = GetComponent<StateMachineManager>();
             stateMachineManager.SetStates(states);

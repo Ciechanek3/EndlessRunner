@@ -17,7 +17,6 @@ namespace Biome
 
         public override void BiomeBehaviour()
         {
-            throw new NotImplementedException();
         } 
     }
 }
