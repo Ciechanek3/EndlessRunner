@@ -7,7 +7,7 @@ using Platform;
     public class Biome : ScriptableObject
     {
         [SerializeField]
-        private List<Platform> platforms;
+        private List<PlatformElement> platforms;
         [SerializeField]
         private int scoreToChangeBiome;
         [SerializeField]
