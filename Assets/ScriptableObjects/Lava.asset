@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e54304a29072444b0525568b4507ae, type: 3}
   m_Name: Lava
   m_EditorClassIdentifier: 
-  platforms: []
-  scoreToChangeBiome: 0
+  platforms:
+  - {fileID: 0}
+  - {fileID: 0}
+  scoreToChangeBiome: 100
   background: []
