@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Platform
 {
-    public class Platform : MonoBehaviour
+    public class PlatformElement : MonoBehaviour
     {
         [SerializeField]
         private Transform startOfPlatform;

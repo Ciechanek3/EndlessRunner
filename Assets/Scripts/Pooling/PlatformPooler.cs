@@ -6,14 +6,14 @@ namespace Platform
     public class PlatformPooler : MonoBehaviour, IObjectPooler
     {
         [SerializeField]
-        private List<Platform> platformsToPool;
+        private List<PlatformElement> platformsToPool;
         [SerializeField]
         private int amountOfObjectsToPool;
 
-        private List<Platform> pooledPlatforms = new List<Platform>();
+        private List<PlatformElement> pooledPlatforms = new List<PlatformElement>();
         private int numberOfPlatformTypes;
 
-        public List<Platform> PooledPlatforms { get => pooledPlatforms; }
+        public List<PlatformElement> PooledPlatforms { get => pooledPlatforms; }
         public int NumberOfPlatformTypes { get => numberOfPlatformTypes; set => numberOfPlatformTypes = value; }
 
         private void Awake()
@@ -31,7 +31,7 @@ namespace Platform
             }
         }
 
-        public Platform GetRandomObjectFromPool(Transform transform)
+        public PlatformElement GetRandomObjectFromPool(Transform transform)
         {
             if (PooledPlatforms.Count < 1)
             {
@@ -45,7 +45,7 @@ namespace Platform
             return pooledPlatform;
         }
 
-        public void ReturnObjectToPool(Platform platform)
+        public void ReturnObjectToPool(PlatformElement platform)
         {
             PooledPlatforms.Add(platform);
             platform.gameObject.SetActive(false);

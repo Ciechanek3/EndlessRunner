@@ -13,7 +13,7 @@ namespace Platform
         [SerializeField]
         private int platformsEnabled;
         [SerializeField]
-        private Platform startingPlatform;
+        private PlatformElement startingPlatform;
         [SerializeField]
         private float platformSpeed;
         [SerializeField]
@@ -21,7 +21,7 @@ namespace Platform
 
         public event Action OnPlatformDisabled;
 
-        private List<Platform> platformElements = new List<Platform>();
+        private List<PlatformElement> platformElements = new List<PlatformElement>();
         private Vector3 move = new Vector3();
 
         private void Awake()
