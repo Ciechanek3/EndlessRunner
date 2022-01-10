@@ -1,10 +1,18 @@
 using StateMachine;
 using System;
 
-public class DefaultBiome : BaseState
+namespace Biome
 {
-    public override Type Tick()
+    public class DefaultBiome : BiomesBaseState
     {
-        throw new NotImplementedException();
+        public override void BiomeBehaviour()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Type Tick()
+        {
+            return null;
+        }
     }
 }

@@ -1,10 +1,23 @@
 using StateMachine;
 using System;
 
-public class WaterBiome : BaseState
+namespace Biome
 {
-    public override Type Tick()
+    public class WaterBiome : BiomesBaseState
     {
-        throw new NotImplementedException();
+        public override void BiomeBehaviour()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void IncrementBiomeScore()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Type Tick()
+        {
+            return null;
+        }
     }
 }

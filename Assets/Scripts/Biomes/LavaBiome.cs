@@ -1,10 +1,18 @@
 using StateMachine;
 using System;
 
-public class LavaBiome : BaseState
+namespace Biome
 {
-    public override Type Tick()
+    public class LavaBiome : BiomesBaseState
     {
-        throw new NotImplementedException();
+        public override void BiomeBehaviour()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Type Tick()
+        {
+            return null;
+        }
     }
 }
