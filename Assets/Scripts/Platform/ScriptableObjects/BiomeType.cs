@@ -14,5 +14,7 @@ namespace Biome
         private int scoreToChangeBiome;
         [SerializeField]
         private List<GameObject> background;
+
+        public List<PlatformElement> Platforms { get => platforms; set => platforms = value; }
     }
 }   

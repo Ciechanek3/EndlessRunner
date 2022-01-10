@@ -1,28 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Biome;
 
 namespace Platform
 {
     public class PlatformPooler : MonoBehaviour, IObjectPooler
     {
         [SerializeField]
-        private List<PlatformElement> platformsToPool;
+        private List<BiomeType> biomeTypes;
         [SerializeField]
         private int amountOfObjectsToPool;
 
         private List<PlatformElement> pooledPlatforms = new List<PlatformElement>();
+        private List<PlatformElement> platformTypes = new List<PlatformElement>();
         private int numberOfPlatformTypes;
 
         public List<PlatformElement> PooledPlatforms { get => pooledPlatforms; }
-        public int NumberOfPlatformTypes { get => numberOfPlatformTypes; set => numberOfPlatformTypes = value; }
+        public List<PlatformElement> PlatformTypes { get => platformTypes; set => platformTypes = value; }
 
         private void Awake()
         {
-            NumberOfPlatformTypes = platformsToPool.Count;
+            for(int i = 0; i < biomeTypes.Count; i++)
+            {
+                for(int j = 0; j < biomeTypes[i].Platforms.Count; j++)
+                {
+                    PlatformTypes.Add(biomeTypes[i].Platforms[j]);
+                }
+            }
+            numberOfPlatformTypes = PlatformTypes.Count;
         }
         public void InstantiateObjectsToPool()
         {
-            for (int i = 0; i < platformsToPool.Count; i++)
+            for (int i = 0; i < numberOfPlatformTypes; i++)
             {
                 for (int j = 0; j < amountOfObjectsToPool; j++)
                 {
@@ -31,11 +40,11 @@ namespace Platform
             }
         }
 
-        public PlatformElement GetRandomObjectFromPool(Transform transform)
+        public PlatformElement GetRandomObjectFromPool(Transform transform, BiomeType currentBiome)
         {
             if (PooledPlatforms.Count < 1)
             {
-                AddRandomElementToPool();
+                AddRandomElementToPool(currentBiome);
             }
             var index = GetRandomPlatformIndex(PooledPlatforms.Count);
             var pooledPlatform = PooledPlatforms[index];
@@ -53,14 +62,14 @@ namespace Platform
 
         public void AddElementToPool(int index)
         {
-            var pooledPlatform = Instantiate(platformsToPool[index], transform);
+            var pooledPlatform = Instantiate(PlatformTypes[index], transform);
             pooledPlatform.gameObject.SetActive(false);
             PooledPlatforms.Add(pooledPlatform);
         }
 
-        public void AddRandomElementToPool()
+        public void AddRandomElementToPool(BiomeType currentBiome)
         {
-            var pooledPlatform = Instantiate(platformsToPool[GetRandomPlatformIndex(platformsToPool.Count)], transform);
+            var pooledPlatform = Instantiate(currentBiome.Platforms[GetRandomPlatformIndex(currentBiome.Platforms.Count)], transform);
             pooledPlatform.gameObject.SetActive(false);
             PooledPlatforms.Add(pooledPlatform);
         }

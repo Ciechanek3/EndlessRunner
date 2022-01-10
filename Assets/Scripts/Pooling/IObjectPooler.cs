@@ -4,5 +4,4 @@ public interface IObjectPooler
 { 
     void InstantiateObjectsToPool();
     void AddElementToPool(int index);
-    void AddRandomElementToPool();
 }

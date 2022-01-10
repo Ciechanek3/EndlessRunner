@@ -1,8 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using StateMachine;
 
 namespace Platform
 {
@@ -18,6 +18,8 @@ namespace Platform
         private float platformSpeed;
         [SerializeField]
         private Camera mainCamera;
+        [SerializeField]
+        private CurrentBiomeChecker currentBiomeChecker;
 
         public event Action OnPlatformDisabled;
 
@@ -35,7 +37,7 @@ namespace Platform
             platformElements.Add(startingPlatform);
             for (int i = 1; i <= platformsEnabled; i++)
             {
-                var platform = platformPooler.GetRandomObjectFromPool(platformElements[i - 1].EndOfPlatform);
+                var platform = platformPooler.GetRandomObjectFromPool(platformElements[i - 1].EndOfPlatform, currentBiomeChecker.GetCurrentBiome());
                 platformElements.Add(platform);
             }
             platformElements.Remove(startingPlatform);
@@ -55,7 +57,7 @@ namespace Platform
                 {
                     platformPooler.ReturnObjectToPool(platformElements[i]);
                     platformElements.RemoveAt(i);
-                    var platform = platformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
+                    var platform = platformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform, currentBiomeChecker.GetCurrentBiome());
                     platformElements.Add(platform);
                     OnPlatformDisabled.Invoke();
                 }
