@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Platform;
 
+namespace Biome
+{
     [CreateAssetMenu(menuName = "My Assets/Biome")]
     public class Biome : ScriptableObject
     {
@@ -13,3 +15,4 @@ using Platform;
         [SerializeField]
         private List<GameObject> background;
     }
+}   
