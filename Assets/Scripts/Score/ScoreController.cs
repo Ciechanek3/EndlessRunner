@@ -3,33 +3,37 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ScoreController : MonoBehaviour
+namespace Score
 {
-    [SerializeField]
-    private TextMeshProUGUI scoreCounter;
-    [SerializeField]
-    private PlatformController platformController;
-
-    private int score = 0;
-
-    private void OnEnable()
+    public class ScoreController : MonoBehaviour
     {
-        platformController.OnPlatformDisabled += AddScore;
-    }
+        [SerializeField]
+        private TextMeshProUGUI scoreCounter;
+        [SerializeField]
+        private PlatformController platformController;
 
-    private void OnDisable()
-    {
-        platformController.OnPlatformDisabled -= AddScore;
-    }
+        private int score = 0;
 
-    private void AddScore()
-    {
-        score++;
-        SetScoreOnUI();
-    }
+        private void OnEnable()
+        {
+            platformController.OnPlatformDisabled += AddScore;
+        }
 
-    private void SetScoreOnUI()
-    {
-        scoreCounter.text = "Score: " + score.ToString();
+        private void OnDisable()
+        {
+            platformController.OnPlatformDisabled -= AddScore;
+        }
+
+        private void AddScore()
+        {
+            score++;
+            SetScoreOnUI();
+        }
+
+        private void SetScoreOnUI()
+        {
+            scoreCounter.text = "Score: " + score.ToString();
+        }
     }
 }
+

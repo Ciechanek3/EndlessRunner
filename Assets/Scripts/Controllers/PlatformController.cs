@@ -4,60 +4,62 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlatformController : MonoBehaviour
-{   
-    [SerializeField]
-    private PlatformPooler platformPooler;
-    [SerializeField]
-    private int platformsEnabled;
-    [SerializeField]
-    private Platform startingPlatform;
-    [SerializeField]
-    private float platformSpeed;
-    [SerializeField]
-    private Camera mainCamera;
-
-    public event Action OnPlatformDisabled;
-
-    private List<Platform> platformElements = new List<Platform>();
-    private Vector3 move = new Vector3();
-
-    private void Awake()
+namespace Platform
+{
+    public class PlatformController : MonoBehaviour
     {
-        platformPooler.InstantiateObjectsToPool();
-        move = new Vector3(0, 0, platformSpeed * Time.deltaTime);
-    }
-   
-    private void Start()
-    {
-        platformElements.Add(startingPlatform);
-        for (int i = 1; i <= platformsEnabled; i++)
+        [SerializeField]
+        private PlatformPooler platformPooler;
+        [SerializeField]
+        private int platformsEnabled;
+        [SerializeField]
+        private Platform startingPlatform;
+        [SerializeField]
+        private float platformSpeed;
+        [SerializeField]
+        private Camera mainCamera;
+
+        public event Action OnPlatformDisabled;
+
+        private List<Platform> platformElements = new List<Platform>();
+        private Vector3 move = new Vector3();
+
+        private void Awake()
         {
-            var platform = platformPooler.GetRandomObjectFromPool(platformElements[i - 1].EndOfPlatform);
-            platformElements.Add(platform);
+            platformPooler.InstantiateObjectsToPool();
+            move = new Vector3(0, 0, platformSpeed * Time.deltaTime);
         }
-        platformElements.Remove(startingPlatform);
-    }
 
-    private void Update()
-    {
-        MovePlatform();
-    }
-
-    private void MovePlatform()
-    {
-        for (int i = 0; i < platformElements.Count; i++)
+        private void Start()
         {
-            platformElements[i].gameObject.transform.Translate(platformElements[i].transform.forward * Time.deltaTime * platformSpeed);
-            if (platformElements[i].EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)
+            platformElements.Add(startingPlatform);
+            for (int i = 1; i <= platformsEnabled; i++)
             {
-                platformPooler.ReturnObjectToPool(platformElements[i]);
-                platformElements.RemoveAt(i);
-                var platform = platformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
+                var platform = platformPooler.GetRandomObjectFromPool(platformElements[i - 1].EndOfPlatform);
                 platformElements.Add(platform);
-                OnPlatformDisabled.Invoke();
+            }
+            platformElements.Remove(startingPlatform);
+        }
+
+        private void Update()
+        {
+            MovePlatform();
+        }
+
+        private void MovePlatform()
+        {
+            for (int i = 0; i < platformElements.Count; i++)
+            {
+                platformElements[i].gameObject.transform.Translate(platformElements[i].transform.forward * Time.deltaTime * platformSpeed);
+                if (platformElements[i].EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)
+                {
+                    platformPooler.ReturnObjectToPool(platformElements[i]);
+                    platformElements.RemoveAt(i);
+                    var platform = platformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
+                    platformElements.Add(platform);
+                    OnPlatformDisabled.Invoke();
+                }
             }
         }
     }
-
 }

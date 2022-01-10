@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartingPlatformDisabler : MonoBehaviour
+namespace Platform
 {
-    private void OnTriggerEnter(Collider other)
+    public class StartingPlatformDisabler : MonoBehaviour
     {
-        if (other.gameObject.CompareTag("Ground"))
+        private void OnTriggerEnter(Collider other)
         {
-            gameObject.SetActive(false);
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }
+
