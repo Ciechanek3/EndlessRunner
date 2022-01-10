@@ -5,14 +5,19 @@ namespace Biome
 {
     public class LavaBiome : BiomesBaseState
     {
+        public override Type Tick()
+        {
+            BiomeBehaviour();
+            if (currentBiomeScore >= scoreRequired)
+            {
+                return typeof(DefaultBiome);
+            }
+            return null;
+        }
+
         public override void BiomeBehaviour()
         {
             throw new NotImplementedException();
-        }
-
-        public override Type Tick()
-        {
-            return null;
         }
     }
 }

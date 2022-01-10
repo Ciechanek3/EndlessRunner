@@ -5,14 +5,19 @@ namespace Biome
 {
     public class DefaultBiome : BiomesBaseState
     {
+        public override Type Tick()
+        {
+            BiomeBehaviour();
+            if (currentBiomeScore >= scoreRequired)
+            {
+                return typeof(WaterBiome);
+            }
+            return null;
+        }
+
         public override void BiomeBehaviour()
         {
             throw new NotImplementedException();
-        }
-
-        public override Type Tick()
-        {
-            return null;
         }
     }
 }
