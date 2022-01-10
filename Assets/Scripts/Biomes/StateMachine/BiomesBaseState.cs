@@ -1,7 +1,6 @@
 using UnityEngine;
 using Platform;
-using System.Collections.Generic;
-using System;
+using Biome;
 
 namespace StateMachine
 {
@@ -10,6 +9,8 @@ namespace StateMachine
         
         [SerializeField]
         protected int scoreRequired;
+        [SerializeField]
+        private BiomeType biome;
 
         protected int currentBiomeScore;
         protected PlatformController platformController;
