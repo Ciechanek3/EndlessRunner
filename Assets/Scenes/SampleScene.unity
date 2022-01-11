@@ -831,6 +831,108 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1323726957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1323726958}
+  - component: {fileID: 1323726963}
+  - component: {fileID: 1323726962}
+  - component: {fileID: 1323726961}
+  - component: {fileID: 1323726960}
+  - component: {fileID: 1323726959}
+  m_Layer: 0
+  m_Name: StateMachine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1323726958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323726957}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1454202788}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1323726959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323726957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f332bcd84ef648c4c8784d4d88d63965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreRequired: 10
+  score: {fileID: 491791578}
+--- !u!114 &1323726960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323726957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a19de1a7b4f42b54ca86f03076b9d21e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreRequired: 10
+  score: {fileID: 491791578}
+--- !u!114 &1323726961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323726957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7314f949f98bf034e8336e14166c137f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreRequired: 10
+  score: {fileID: 491791578}
+--- !u!114 &1323726962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323726957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4822525e99be41040ae7676105f6efc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: {fileID: 0}
+--- !u!114 &1323726963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323726957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61e751cd062d5ce4982c4ca02b51dac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1454202786
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,6 +944,7 @@ GameObject:
   - component: {fileID: 1454202788}
   - component: {fileID: 1454202787}
   - component: {fileID: 1454202789}
+  - component: {fileID: 1454202790}
   m_Layer: 0
   m_Name: PlatformController
   m_TagString: Untagged
@@ -866,6 +969,7 @@ MonoBehaviour:
   startingPlatform: {fileID: 1050648624}
   platformSpeed: 10
   mainCamera: {fileID: 963194227}
+  currentBiomeChecker: {fileID: 1454202790}
 --- !u!4 &1454202788
 Transform:
   m_ObjectHideFlags: 0
@@ -876,7 +980,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6.4153366, y: -5.0486317, z: -11.892143}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1323726958}
   m_Father: {fileID: 661079071}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -892,10 +997,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2faca4d1a0bdbd4469ab687f318bdf01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformsToPool:
-  - {fileID: 6483492021871554579, guid: 11b94a082319ca24292e906de6f0a69c, type: 3}
-  - {fileID: 7716017327745499782, guid: 1c91473e7152f234a83b61e9ad442113, type: 3}
+  biomeTypes:
+  - {fileID: 11400000, guid: 74dceb31f6a0be14b867083215c044a9, type: 2}
+  - {fileID: 11400000, guid: e28712a48b1855940a2894db18345d29, type: 2}
+  - {fileID: 11400000, guid: d2f8787b721fa2246b3b2709d9114ef3, type: 2}
   amountOfObjectsToPool: 5
+--- !u!114 &1454202790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454202786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1474a1b9f485d949a7767677060bcab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformStateMachine: {fileID: 1323726962}
+  defaultBiome: {fileID: 11400000, guid: 74dceb31f6a0be14b867083215c044a9, type: 2}
+  waterBiome: {fileID: 11400000, guid: d2f8787b721fa2246b3b2709d9114ef3, type: 2}
+  lavaBiome: {fileID: 11400000, guid: e28712a48b1855940a2894db18345d29, type: 2}
 --- !u!1 &1896622425
 GameObject:
   m_ObjectHideFlags: 0

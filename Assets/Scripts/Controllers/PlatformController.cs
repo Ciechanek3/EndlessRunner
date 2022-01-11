@@ -26,16 +26,14 @@ namespace Platform
         private List<PlatformElement> platformElements = new List<PlatformElement>();
         private Vector3 move = new Vector3();
 
-        private void Awake()
-        {
-            platformPooler.InstantiateObjectsToPool();
-            move = new Vector3(0, 0, platformSpeed * Time.deltaTime);
-        }
+        public int PlatformsEnabled { get => platformsEnabled; set => platformsEnabled = value; }
 
         private void Start()
         {
+            platformPooler.InstantiateObjectsToPool();
+            move = new Vector3(0, 0, platformSpeed * Time.deltaTime);
             platformElements.Add(startingPlatform);
-            for (int i = 1; i <= platformsEnabled; i++)
+            for (int i = 1; i <= PlatformsEnabled; i++)
             {
                 var platform = platformPooler.GetRandomObjectFromPool(platformElements[i - 1].EndOfPlatform, currentBiomeChecker.GetCurrentBiome());
                 platformElements.Add(platform);
@@ -57,6 +55,7 @@ namespace Platform
                 {
                     platformPooler.ReturnObjectToPool(platformElements[i]);
                     platformElements.RemoveAt(i);
+                    Debug.LogError(currentBiomeChecker.GetCurrentBiome());
                     var platform = platformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform, currentBiomeChecker.GetCurrentBiome());
                     platformElements.Add(platform);
                     OnPlatformDisabled.Invoke();

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   platforms:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6483492021871554579, guid: 11b94a082319ca24292e906de6f0a69c, type: 3}
+  - {fileID: 7716017327745499782, guid: 1c91473e7152f234a83b61e9ad442113, type: 3}
   scoreToChangeBiome: 100
   background: []

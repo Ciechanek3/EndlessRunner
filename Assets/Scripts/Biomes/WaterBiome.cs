@@ -8,8 +8,9 @@ namespace Biome
         public override Type Tick()
         {
             BiomeBehaviour();
-            if (currentBiomeScore >= scoreRequired)
+            if (score.CurrentBiomeScore >= scoreRequired)
             {
+                score.CurrentBiomeScore = 0;
                 return typeof(LavaBiome);
             }
             return null;

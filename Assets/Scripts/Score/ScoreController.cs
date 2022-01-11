@@ -14,6 +14,15 @@ namespace Score
         private PlatformController platformController;
 
         private int score = 0;
+        private int currentBiomeScore = 0;
+
+        public int CurrentBiomeScore { get => currentBiomeScore; set => currentBiomeScore = value; }
+
+
+        private void Awake()
+        {
+            currentBiomeScore = 0 + platformController.PlatformsEnabled;
+        }
 
         private void OnEnable()
         {
@@ -28,6 +37,7 @@ namespace Score
         private void AddScore()
         {
             score++;
+            currentBiomeScore++;
             SetScoreOnUI();
         }
 

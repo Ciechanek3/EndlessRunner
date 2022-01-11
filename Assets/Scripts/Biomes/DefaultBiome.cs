@@ -1,5 +1,6 @@
 using StateMachine;
 using System;
+using UnityEngine;
 
 namespace Biome
 {
@@ -8,8 +9,9 @@ namespace Biome
         public override Type Tick()
         {
             BiomeBehaviour();
-            if (currentBiomeScore >= scoreRequired)
+            if (score.CurrentBiomeScore >= scoreRequired)
             {
+                score.CurrentBiomeScore = 0;
                 return typeof(WaterBiome);
             }
             return null;

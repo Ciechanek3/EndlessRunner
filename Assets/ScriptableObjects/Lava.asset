@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lava
   m_EditorClassIdentifier: 
   platforms:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7629460354999560496, guid: 281bfb420f173bd47b1a070f622b2bbe, type: 3}
+  - {fileID: 4565307854747341429, guid: 2bd4a0806ae4cd5489a03f99d58ccb35, type: 3}
   scoreToChangeBiome: 100
   background: []

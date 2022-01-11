@@ -29,6 +29,7 @@ namespace Platform
             }
             numberOfPlatformTypes = PlatformTypes.Count;
         }
+
         public void InstantiateObjectsToPool()
         {
             for (int i = 0; i < numberOfPlatformTypes; i++)

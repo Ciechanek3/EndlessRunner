@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   platforms:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3021303066045511784, guid: 05877dcef3061ff418282c258b3402be, type: 3}
+  - {fileID: 518260284214040247, guid: 135a1092bd5cb0143800d459dbb5074b, type: 3}
   scoreToChangeBiome: 100
   background: []

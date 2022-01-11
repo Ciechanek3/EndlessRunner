@@ -9,6 +9,7 @@ namespace StateMachine
     {
         private Dictionary<Type, BaseState> availableStates;
 
+        [SerializeField]
         private BaseState currentState;
 
         public BaseState CurrentState { get => currentState; set => currentState = value; }

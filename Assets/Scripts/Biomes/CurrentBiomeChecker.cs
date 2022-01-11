@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Biome;
 using StateMachine;
@@ -17,13 +19,13 @@ public class CurrentBiomeChecker : MonoBehaviour
     {
         switch(platformStateMachine.CurrentState)
         {
-            case DefaultBiome biome:
+            case DefaultBiome a:
                 return defaultBiome;
-            case WaterBiome biome:
+            case WaterBiome a:
                 return waterBiome;
-            case LavaBiome biome:
+            case LavaBiome a:
                 return lavaBiome;
-            default:
+            default: 
                 return defaultBiome;
         }
     }
