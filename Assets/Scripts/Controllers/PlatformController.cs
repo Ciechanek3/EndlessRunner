@@ -41,13 +41,15 @@ namespace Platform
         private void Start()
         {
             biomesOffset = platformsEnabled;
-            currentPlatformPooler = GetCurrentBiomePlatformPooler();
+            currentPlatformPooler = GetCurrentBiomePlatformPooler(SetFirstBiome());
+            previousPlatformPooler = currentPlatformPooler;
+            Debug.LogError(currentPlatformPooler);
             InstantiateObjectsToPool();
             move = new Vector3(0, 0, platformSpeed * Time.deltaTime);
             platformElements.Add(startingPlatform);
             for (int i = 1; i <= PlatformsEnabled; i++)
             {
-                var platform = defaultPlatformPooler.GetRandomObjectFromPool(platformElements[i - 1].EndOfPlatform);
+                var platform = currentPlatformPooler.GetRandomObjectFromPool(platformElements[i - 1].EndOfPlatform);
                 platformElements.Add(platform);
             }
             platformElements.Remove(startingPlatform);
@@ -72,29 +74,25 @@ namespace Platform
         {
             for (int i = 0; i < platformElements.Count; i++)
             {
-                platformElements[i].gameObject.transform.Translate(platformElements[i].transform.forward * Time.deltaTime * platformSpeed);              
+                platformElements[i].gameObject.transform.Translate(platformElements[i].transform.forward * Time.deltaTime * platformSpeed);
             }
+
             if (platformElements[0].EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)
             {
                 OnPlatformDisabled.Invoke();
-                currentPlatformPooler.ReturnObjectToPool(platformElements[0]);
-                platformElements.RemoveAt(0);
-                previousPlatformPooler = currentPlatformPooler;       
-                TestPlatformPooler(currentPlatformPooler);
-                TestPlatformPooler(previousPlatformPooler);
-
-                PlatformElement platform = new PlatformElement();
                 if (biomesOffset > 0)
-                {                  
-                    platform = previousPlatformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
+                {
+                    Debug.LogError("Prev");
+                    previousPlatformPooler.ReturnObjectToPool(platformElements[0]);
                     biomesOffset--;
                 }
                 else
                 {
-                    Debug.LogError("CHANGE");
-                    platform = currentPlatformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
-                    biomesOffset = platformsEnabled;
-                }
+                    Debug.LogError("ACTUAL");
+                    currentPlatformPooler.ReturnObjectToPool(platformElements[0]);                   
+                }           
+                platformElements.RemoveAt(0);
+                PlatformElement platform = currentPlatformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
                 platformElements.Add(platform);
             }
         }
@@ -111,11 +109,14 @@ namespace Platform
             switch(state)
             {
                 case DefaultBiome a:
+                    Debug.LogError("DEFAULT");
                     return defaultPlatformPooler;
                 case WaterBiome a:
                     return waterPlatformPooler;
+                    Debug.LogError("WATER");
                 case LavaBiome a:
                     return lavaPlatformPooler;
+                    Debug.LogError("Lava");
                 default:
                     return defaultPlatformPooler;
             }
@@ -142,7 +143,13 @@ namespace Platform
         {
             previousPlatformPooler = currentPlatformPooler;
             currentPlatformPooler = GetCurrentBiomePlatformPooler(nextState);
+            biomesOffset = platformsEnabled;
+        }
 
+        private BaseState SetFirstBiome()
+        {
+            Debug.LogError(platformStateMachineManager.CurrentState);            
+            return platformStateMachineManager.CurrentState;     
         }
     }
 }
