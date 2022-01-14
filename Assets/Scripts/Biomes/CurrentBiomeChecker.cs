@@ -15,9 +15,11 @@ public class CurrentBiomeChecker : MonoBehaviour
     [SerializeField]
     private BiomeType lavaBiome;
 
+    public StateMachineManager PlatformStateMachine { get => platformStateMachine; set => platformStateMachine = value; }
+
     public BiomeType GetCurrentBiome()
     {
-        switch(platformStateMachine.CurrentState)
+        switch(PlatformStateMachine.CurrentState)
         {
             case DefaultBiome a:
                 return defaultBiome;
