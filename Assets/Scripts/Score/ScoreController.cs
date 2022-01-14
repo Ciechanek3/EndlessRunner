@@ -45,6 +45,11 @@ namespace Score
         {
             scoreCounter.text = "Score: " + score.ToString();
         }
+
+        public void ResetScore()
+        {
+            score = 0;
+        }
     }
 }
 
