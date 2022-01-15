@@ -3,21 +3,16 @@ using System;
 
 namespace Biome
 {
-    public class WaterBiome : BiomesBaseState
+    public class WaterBiome : BiomesPoolingBaseState
     {
         public override Type Tick()
         {
-            BiomeBehaviour();
-            if (score.CurrentBiomeScore >= scoreRequired)
+            if (score.CurrentBiomeScore >= ScoreRequired)
             {
                 score.CurrentBiomeScore = 0;
                 return typeof(LavaBiome);
             }
             return null;
         }
-
-        public override void BiomeBehaviour()
-        {
-        } 
     }
 }

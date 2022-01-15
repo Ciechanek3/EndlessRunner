@@ -5,7 +5,7 @@ using System;
 
 namespace Biome
 {
-    public class BiomesStateMachine : MonoBehaviour
+    public class BiomesPoolingStateMachine : MonoBehaviour
     {
 
         private void Awake()

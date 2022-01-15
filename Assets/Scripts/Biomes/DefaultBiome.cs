@@ -4,21 +4,16 @@ using UnityEngine;
 
 namespace Biome
 {
-    public class DefaultBiome : BiomesBaseState
+    public class DefaultBiome : BiomesPoolingBaseState
     {
         public override Type Tick()
         {
-            BiomeBehaviour();
-            if (score.CurrentBiomeScore >= scoreRequired)
+            if (score.CurrentBiomeScore >= ScoreRequired)
             {
                 score.CurrentBiomeScore = 0;
                 return typeof(WaterBiome);
             }
             return null;
-        }
-
-        public override void BiomeBehaviour()
-        {
         }
     }
 }
