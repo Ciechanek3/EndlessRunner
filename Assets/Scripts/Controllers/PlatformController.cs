@@ -91,7 +91,6 @@ namespace Platform
                 platformElements.RemoveAt(0);
                 PlatformElement platform = currentPlatformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
                 platformElements.Add(platform);
-                Debug.LogError("XD");
             }
         }
 
