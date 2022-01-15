@@ -34,16 +34,15 @@ namespace Platform
         private Vector3 move = new Vector3();
         private PlatformPooler currentPlatformPooler;
         private PlatformPooler previousPlatformPooler;
-        private int biomesOffset;
+        private int biomesOffset;       
 
         public int PlatformsEnabled { get => platformsEnabled; set => platformsEnabled = value; }
+        public int BiomesOffset { get => biomesOffset; set => biomesOffset = value; }
 
         private void Start()
         {
-            biomesOffset = platformsEnabled;
-            currentPlatformPooler = GetCurrentBiomePlatformPooler(SetFirstBiome());
-            previousPlatformPooler = currentPlatformPooler;
-            Debug.LogError(currentPlatformPooler);
+            BiomesOffset = platformsEnabled;
+            SetBiome(platformStateMachineManager.CurrentState);
             InstantiateObjectsToPool();
             move = new Vector3(0, 0, platformSpeed * Time.deltaTime);
             platformElements.Add(startingPlatform);
@@ -57,12 +56,12 @@ namespace Platform
 
         private void OnEnable()
         {
-            platformStateMachineManager.OnStateChanged += ChangeBiome;
+            platformStateMachineManager.OnStateChanged += SetBiome;
         }
 
         private void OnDisable()
         {
-            platformStateMachineManager.OnStateChanged -= ChangeBiome;
+            platformStateMachineManager.OnStateChanged -= SetBiome;
         }
 
         private void Update()
@@ -79,21 +78,20 @@ namespace Platform
 
             if (platformElements[0].EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)
             {
-                OnPlatformDisabled.Invoke();
+                OnPlatformDisabled.Invoke();               
                 if (biomesOffset > 0)
                 {
-                    Debug.LogError("Prev");
                     previousPlatformPooler.ReturnObjectToPool(platformElements[0]);
                     biomesOffset--;
                 }
                 else
                 {
-                    Debug.LogError("ACTUAL");
-                    currentPlatformPooler.ReturnObjectToPool(platformElements[0]);                   
-                }           
+                    currentPlatformPooler.ReturnObjectToPool(platformElements[0]);
+                }                        
                 platformElements.RemoveAt(0);
                 PlatformElement platform = currentPlatformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
                 platformElements.Add(platform);
+                Debug.LogError("XD");
             }
         }
 
@@ -108,15 +106,12 @@ namespace Platform
         {
             switch(state)
             {
-                case DefaultBiome a:
-                    Debug.LogError("DEFAULT");
+                case DefaultBiome _:
                     return defaultPlatformPooler;
-                case WaterBiome a:
+                case WaterBiome _:
                     return waterPlatformPooler;
-                    Debug.LogError("WATER");
-                case LavaBiome a:
+                case LavaBiome _:
                     return lavaPlatformPooler;
-                    Debug.LogError("Lava");
                 default:
                     return defaultPlatformPooler;
             }
@@ -135,21 +130,14 @@ namespace Platform
             else if (p == lavaPlatformPooler)
             {
                 Debug.LogError("LAVA");
-            }
-                    
+            }                
         }
 
-        private void ChangeBiome(BaseState nextState)
+        private void SetBiome(BaseState nextState)
         {
             previousPlatformPooler = currentPlatformPooler;
             currentPlatformPooler = GetCurrentBiomePlatformPooler(nextState);
             biomesOffset = platformsEnabled;
-        }
-
-        private BaseState SetFirstBiome()
-        {
-            Debug.LogError(platformStateMachineManager.CurrentState);            
-            return platformStateMachineManager.CurrentState;     
         }
     }
 }
