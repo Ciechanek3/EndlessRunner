@@ -878,7 +878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f332bcd84ef648c4c8784d4d88d63965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreRequired: 10
+  scoreRequired: 5
   score: {fileID: 491791578}
 --- !u!114 &1323726960
 MonoBehaviour:
@@ -892,7 +892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19de1a7b4f42b54ca86f03076b9d21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreRequired: 10
+  scoreRequired: 5
   score: {fileID: 491791578}
 --- !u!114 &1323726961
 MonoBehaviour:
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7314f949f98bf034e8336e14166c137f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreRequired: 10
+  scoreRequired: 5
   score: {fileID: 491791578}
 --- !u!114 &1323726962
 MonoBehaviour:
@@ -969,9 +969,9 @@ MonoBehaviour:
   defaultPlatformPooler: {fileID: 1454202789}
   waterPlatformPooler: {fileID: 1454202792}
   lavaPlatformPooler: {fileID: 1454202791}
-  platformsEnabled: 5
+  platformsEnabled: 8
   startingPlatform: {fileID: 1050648624}
-  platformSpeed: 10
+  platformSpeed: 15
   mainCamera: {fileID: 963194227}
   currentBiomeChecker: {fileID: 1454202790}
   platformStateMachineManager: {fileID: 1323726962}
