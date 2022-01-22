@@ -7,6 +7,12 @@ public class Health : MonoBehaviour
 {
     [SerializeField]
     private int startingHp;
+    [SerializeField]
+    private int invisibilityTime;
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private Animation getHitAnimation;
 
     private int currentHp;
 
@@ -35,6 +41,15 @@ public class Health : MonoBehaviour
         if (currentHp < 5)
         {
             currentHp++;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        {
+            LoseHp();
+            
         }
     }
 }
