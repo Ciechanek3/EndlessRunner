@@ -13,17 +13,20 @@ namespace StateMachine
         private BaseState currentState;
 
         public BaseState CurrentState { get => currentState; set => currentState = value; }
+        public Dictionary<Type, BaseState> AvailableStates { get => availableStates; set => availableStates = value; }
 
         public event Action<BaseState> OnStateChanged;
+        public event Action<Dictionary<Type, BaseState>> OnListOfStatesCreated;
 
         public void SetStates(Dictionary<Type, BaseState> states)
         {
-            availableStates = states;
+            AvailableStates = states;
         }
 
         private void OnEnable()
         {
-            CurrentState = availableStates.Values.First();
+            CurrentState = AvailableStates.Values.First();
+            OnListOfStatesCreated?.Invoke(AvailableStates);
         }
 
         private void FixedUpdate()
@@ -38,7 +41,7 @@ namespace StateMachine
 
         public void SwitchToNewState(Type nextState)
         {
-            CurrentState = availableStates[nextState];
+            CurrentState = AvailableStates[nextState];
             OnStateChanged?.Invoke(CurrentState);
         }
     }

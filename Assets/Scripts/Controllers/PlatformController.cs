@@ -10,12 +10,6 @@ namespace Platform
     public class PlatformController : MonoBehaviour
     {
         [SerializeField]
-        private PlatformPooler defaultPlatformPooler;
-        [SerializeField]
-        private PlatformPooler waterPlatformPooler;
-        [SerializeField]
-        private PlatformPooler lavaPlatformPooler;
-        [SerializeField]
         private int platformsEnabled;
         [SerializeField]
         private PlatformElement startingPlatform;
@@ -34,7 +28,11 @@ namespace Platform
         private Vector3 move = new Vector3();
         private PlatformPooler currentPlatformPooler;
         private PlatformPooler previousPlatformPooler;
-        private int biomesOffset;       
+        private int biomesOffset;
+        private float time;
+        private bool shouldReturnToPreviousPooler = true;
+        private BiomesPoolingBaseState currentPoolerState;
+        private Queue<BiomesPoolingBaseState> queueOfBiomes;
 
         public int PlatformsEnabled { get => platformsEnabled; set => platformsEnabled = value; }
         public int BiomesOffset { get => biomesOffset; set => biomesOffset = value; }
@@ -43,7 +41,6 @@ namespace Platform
         {
             BiomesOffset = platformsEnabled;
             SetBiome(platformStateMachineManager.CurrentState);
-            InstantiateObjectsToPool();
             move = new Vector3(0, 0, platformSpeed * Time.deltaTime);
             platformElements.Add(startingPlatform);
             for (int i = 1; i <= PlatformsEnabled; i++)
@@ -57,11 +54,13 @@ namespace Platform
         private void OnEnable()
         {
             platformStateMachineManager.OnStateChanged += SetBiome;
+            platformStateMachineManager.OnListOfStatesCreated += InstantiateObjectsToPool;
         }
 
         private void OnDisable()
         {
             platformStateMachineManager.OnStateChanged -= SetBiome;
+            platformStateMachineManager.OnListOfStatesCreated -= InstantiateObjectsToPool;
         }
 
         private void Update()
@@ -71,6 +70,7 @@ namespace Platform
 
         private void MovePlatform()
         {
+            time += Time.deltaTime / 2000;
             for (int i = 0; i < platformElements.Count; i++)
             {
                 platformElements[i].gameObject.transform.Translate(platformElements[i].transform.forward * Time.deltaTime * platformSpeed);
@@ -78,65 +78,45 @@ namespace Platform
 
             if (platformElements[0].EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)
             {
-                OnPlatformDisabled.Invoke();               
-                if (biomesOffset > 0)
+                OnPlatformDisabled.Invoke();
+                if (shouldReturnToPreviousPooler)
                 {
                     previousPlatformPooler.ReturnObjectToPool(platformElements[0]);
                     biomesOffset--;
+                    if (biomesOffset == 0)
+                    {
+                        shouldReturnToPreviousPooler = false;
+                    }
                 }
                 else
                 {
                     currentPlatformPooler.ReturnObjectToPool(platformElements[0]);
-                }                        
+                    biomesOffset++;
+                    if (biomesOffset == currentPoolerState.ScoreRequired)
+                    {
+                        shouldReturnToPreviousPooler = true;
+                    }
+                }
                 platformElements.RemoveAt(0);
                 PlatformElement platform = currentPlatformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
                 platformElements.Add(platform);
             }
         }
 
-        private void InstantiateObjectsToPool()
+        private void InstantiateObjectsToPool(Dictionary<Type, BaseState> states)
         {
-            defaultPlatformPooler.InstantiateObjectsToPool();
-            waterPlatformPooler.InstantiateObjectsToPool();
-            lavaPlatformPooler.InstantiateObjectsToPool();
-        }
-
-        private PlatformPooler GetCurrentBiomePlatformPooler(BaseState state)
-        {
-            switch(state)
+            foreach (var state in states)
             {
-                case DefaultBiome _:
-                    return defaultPlatformPooler;
-                case WaterBiome _:
-                    return waterPlatformPooler;
-                case LavaBiome _:
-                    return lavaPlatformPooler;
-                default:
-                    return defaultPlatformPooler;
+                var poolingState = state.Value as BiomesPoolingBaseState;
+                poolingState.PlatformPooler.InstantiateObjectsToPool();
             }
-        }
-
-        private void TestPlatformPooler(PlatformPooler p)
-        {
-            if(p == defaultPlatformPooler)
-            {
-                Debug.LogError("DEFAULT");
-            }
-            else if(p == waterPlatformPooler)
-            {
-                Debug.LogError("WATER");
-            }
-            else if (p == lavaPlatformPooler)
-            {
-                Debug.LogError("LAVA");
-            }                
         }
 
         private void SetBiome(BaseState nextState)
         {
+            currentPoolerState = nextState as BiomesPoolingBaseState;
             previousPlatformPooler = currentPlatformPooler;
-            currentPlatformPooler = GetCurrentBiomePlatformPooler(nextState);
-            biomesOffset = platformsEnabled;
+            currentPlatformPooler = currentPoolerState.PlatformPooler;
         }
     }
 }

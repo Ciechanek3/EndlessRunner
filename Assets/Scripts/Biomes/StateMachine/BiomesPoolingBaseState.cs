@@ -8,10 +8,12 @@ namespace StateMachine
     {
 
         [SerializeField]
-        private int scoreRequired;
+        private int scoreRequired;        
+        [SerializeField]
+        private PlatformPooler platformPooler;
         [SerializeField]
         protected ScoreController score;
-        
+
         protected PlatformController platformController;
 
         private void Awake()
@@ -19,7 +21,7 @@ namespace StateMachine
             platformController = GetComponentInParent<PlatformController>();
         }
 
-        protected int ScoreRequired { get => scoreRequired; set => scoreRequired = value; }
-
+        public int ScoreRequired { get => scoreRequired; set => scoreRequired = value; }
+        public PlatformPooler PlatformPooler { get => platformPooler; set => platformPooler = value; }
     }
 }

@@ -5,7 +5,7 @@ using Platform;
 
 namespace Biome
 {
-    [CreateAssetMenu(menuName = "My Assets/Biome")]
+    [CreateAssetMenu(menuName = "Biome/Biome")]
     public class BiomeType : ScriptableObject
     {
         [SerializeField]
