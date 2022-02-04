@@ -24,15 +24,14 @@ namespace Platform
 
         public event Action OnPlatformDisabled;
 
+        private Dictionary<BiomesPoolingBaseState, int> dictionaryOfBiomes = new Dictionary<BiomesPoolingBaseState, int>();
         private List<PlatformElement> platformElements = new List<PlatformElement>();
         private Vector3 move = new Vector3();
         private PlatformPooler currentPlatformPooler;
         private PlatformPooler previousPlatformPooler;
-        private int biomesOffset;
-        private float time;
-        private bool shouldReturnToPreviousPooler = true;
         private BiomesPoolingBaseState currentPoolerState;
-        private Queue<BiomesPoolingBaseState> queueOfBiomes;
+        private int biomesOffset;
+        private bool changePoolerFlag = true;
 
         public int PlatformsEnabled { get => platformsEnabled; set => platformsEnabled = value; }
         public int BiomesOffset { get => biomesOffset; set => biomesOffset = value; }
@@ -49,6 +48,7 @@ namespace Platform
                 platformElements.Add(platform);
             }
             platformElements.Remove(startingPlatform);
+            dictionaryOfBiomes.Remove(dictionaryOfBiomes.Keys.First());
         }
 
         private void OnEnable()
@@ -70,37 +70,35 @@ namespace Platform
 
         private void MovePlatform()
         {
-            time += Time.deltaTime / 2000;
             for (int i = 0; i < platformElements.Count; i++)
             {
                 platformElements[i].gameObject.transform.Translate(platformElements[i].transform.forward * Time.deltaTime * platformSpeed);
             }
 
-            if (platformElements[0].EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)
+            if (!(platformElements[0].EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)) return;
+
+            Debug.LogError(biomesOffset);
+            OnPlatformDisabled.Invoke();
+
+            if (changePoolerFlag)
             {
-                OnPlatformDisabled.Invoke();
-                if (shouldReturnToPreviousPooler)
-                {
-                    previousPlatformPooler.ReturnObjectToPool(platformElements[0]);
-                    biomesOffset--;
-                    if (biomesOffset == 0)
-                    {
-                        shouldReturnToPreviousPooler = false;
-                    }
-                }
-                else
-                {
-                    currentPlatformPooler.ReturnObjectToPool(platformElements[0]);
-                    biomesOffset++;
-                    if (biomesOffset == currentPoolerState.ScoreRequired)
-                    {
-                        shouldReturnToPreviousPooler = true;
-                    }
-                }
-                platformElements.RemoveAt(0);
-                PlatformElement platform = currentPlatformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
-                platformElements.Add(platform);
+                biomesOffset = dictionaryOfBiomes.Values.First();
+                currentPoolerState = dictionaryOfBiomes.Keys.First();
+                dictionaryOfBiomes.Remove(dictionaryOfBiomes.Keys.First());
+                changePoolerFlag = false;
             }
+
+            currentPoolerState.PlatformPooler.ReturnObjectToPool(platformElements[0]);
+            biomesOffset--;
+
+            if (biomesOffset == 0)
+            {
+                changePoolerFlag = true;
+            }
+
+            platformElements.RemoveAt(0);
+            PlatformElement platform = currentPoolerState.PlatformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
+            platformElements.Add(platform);
         }
 
         private void InstantiateObjectsToPool(Dictionary<Type, BaseState> states)
@@ -115,7 +113,8 @@ namespace Platform
         private void SetBiome(BaseState nextState)
         {
             currentPoolerState = nextState as BiomesPoolingBaseState;
-            previousPlatformPooler = currentPlatformPooler;
+            dictionaryOfBiomes.Add(currentPoolerState, currentPoolerState.ScoreRequired);
+            //currentPoolerState = dictionaryOfBiomes.Keys.First();
             currentPlatformPooler = currentPoolerState.PlatformPooler;
         }
     }
