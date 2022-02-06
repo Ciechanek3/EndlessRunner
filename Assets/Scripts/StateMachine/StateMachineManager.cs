@@ -7,10 +7,13 @@ namespace StateMachine
 {
     public class StateMachineManager : MonoBehaviour
     {
-        private Dictionary<Type, BaseState> availableStates;
-
         [SerializeField]
         private BaseState currentState;
+
+        [SerializeField]
+        private BaseState firstState;
+
+        private Dictionary<Type, BaseState> availableStates;
 
         public BaseState CurrentState { get => currentState; set => currentState = value; }
         public Dictionary<Type, BaseState> AvailableStates { get => availableStates; set => availableStates = value; }
@@ -25,7 +28,7 @@ namespace StateMachine
 
         private void OnEnable()
         {
-            CurrentState = AvailableStates.Values.First();
+            CurrentState = firstState;
             OnListOfStatesCreated?.Invoke(AvailableStates);
         }
 

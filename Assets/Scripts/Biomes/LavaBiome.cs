@@ -1,5 +1,6 @@
 using StateMachine;
 using System;
+using UnityEngine;
 
 namespace Biome
 {
@@ -7,13 +8,16 @@ namespace Biome
     {
         public override Type Tick()
         {
-            MovePlatform();
-            if (score.CurrentBiomeScore >= ScoreRequired)
+            var result = base.Tick();
+            if (result == null)
             {
-                score.CurrentBiomeScore = 0;
-                return typeof(DefaultBiome);
+                platformController.PlatformSpeedMultiplier = 0.9f;
             }
-            return null;
+            else
+            {
+                platformController.PlatformSpeedMultiplier = 1f;
+            }
+            return result;
         }
     }
 }

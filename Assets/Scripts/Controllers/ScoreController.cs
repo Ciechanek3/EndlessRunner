@@ -17,11 +17,10 @@ namespace Score
         private int currentBiomeScore = 0;
 
         public int CurrentBiomeScore { get => currentBiomeScore; set => currentBiomeScore = value; }
-
+        public int Score { get => score; }
 
         private void Awake()
         {
-           // currentBiomeScore = 0 + platformController.PlatformsEnabled;
         }
 
         private void OnEnable()
@@ -43,7 +42,7 @@ namespace Score
 
         private void SetScoreOnUI()
         {
-            scoreCounter.text = "Score: " + score.ToString();
+            scoreCounter.text = "Score: " + Score.ToString();
         }
 
         public void ResetScore()

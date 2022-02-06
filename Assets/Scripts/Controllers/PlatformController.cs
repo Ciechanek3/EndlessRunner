@@ -22,26 +22,30 @@ namespace Platform
 
         public event Action OnPlatformDisabled;
 
-        private PlatformPooler prevPlatformPooler;
-        private PlatformPooler currPlatformPooler;
+        private int biomesLength;
+        private float platformSpeedMultiplier = 1;
+        private float differenceValue = 0;
+        private bool shouldAssignDifferenceValue = true;
         private List<PlatformElement> platformElements = new List<PlatformElement>();
 
-        private void Start()
+        public int PlatformsEnabled { get => platformsEnabled; set => platformsEnabled = value; }
+        public float PlatformSpeedMultiplier { get => platformSpeedMultiplier; set => platformSpeedMultiplier = value; }
+        public int BiomesLength { get => biomesLength; set => biomesLength = value; }
+
+        private void Awake()
         {
-            prevPlatformPooler = platformStateMachineManager.AvailableStates.Values.First().PlatformPooler;
+            BiomesLength = platformsEnabled;
         }
 
         private void OnEnable()
         {
-            platformStateMachineManager.OnStateChanged += OnBiomeChange;
+            platformStateMachineManager.OnStateChanged += ResetDifferenceFlag;
         }
 
         private void OnDisable()
         {
-            platformStateMachineManager.OnStateChanged -= OnBiomeChange;
+            platformStateMachineManager.OnStateChanged += ResetDifferenceFlag;
         }
-
-        public int PlatformsEnabled { get => platformsEnabled; set => platformsEnabled = value; }
 
         public void InstantiateStartingPlatform(BiomesPoolingBaseState firstState)
         {
@@ -54,28 +58,26 @@ namespace Platform
             platformElements.Remove(startingPlatform);
         }
 
-        public void MovePlatform(BiomesPoolingBaseState currentState)
+        public void MovePlatform(BiomesPoolingBaseState currState, BiomesPoolingBaseState nextState)
         {
             for (int i = 0; i < platformElements.Count; i++)
             {
-                platformElements[i].gameObject.transform.Translate(platformElements[i].transform.forward * Time.deltaTime * platformSpeed);
+                platformElements[i].gameObject.transform.Translate(platformElements[i].transform.forward * Time.deltaTime * platformSpeed * platformSpeedMultiplier);
             }
 
             if (!(platformElements[0].EndOfPlatform.gameObject.transform.position.z > mainCamera.transform.position.z)) return;
 
-            OnPlatformDisabled.Invoke();
+            OnPlatformDisabled?.Invoke();
 
-            prevPlatformPooler.ReturnObjectToPool(platformElements[0]);
-            platformElements.RemoveAt(0);
-            PlatformElement platform = currentState.PlatformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
+            currState.PlatformPooler.ReturnObjectToPool(platformElements[0]);
+            PlatformElement platform = nextState.PlatformPooler.GetRandomObjectFromPool(platformElements.Last().EndOfPlatform);
             platformElements.Add(platform);
+            platformElements.RemoveAt(0);
         }
-
-        public void OnBiomeChange(BiomesPoolingBaseState state)
+        
+        public void ResetDifferenceFlag(BaseState state)
         {
-            var biomeState = state as BiomesPoolingBaseState;
-            prevPlatformPooler = currPlatformPooler ?? biomeState.PlatformPooler;
-            currPlatformPooler = biomeState.PlatformPooler;
+            shouldAssignDifferenceValue = true;
         }
     }
 }
