@@ -18,7 +18,7 @@ namespace Game
         [SerializeField]
         private StateMachineManager stateMachineManager;
         [SerializeField]
-        private PlatformController platformController;
+        private GameObject platform;
         [SerializeField]
         private ScoreController score;
 
@@ -37,7 +37,7 @@ namespace Game
         private void GameOver()
         {
             playerMovement.enabled = false;
-            platformController.enabled = false;
+            platform.SetActive(false);
             score.enabled = false;
             gameOverCanvas.gameObject.SetActive(true);
         }

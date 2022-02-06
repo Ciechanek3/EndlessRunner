@@ -9,10 +9,6 @@ public class Health : MonoBehaviour
     private int startingHp;
     [SerializeField]
     private int invisibilityTime;
-    [SerializeField]
-    private Animator animator;
-    [SerializeField]
-    private Animation getHitAnimation;
 
     private int currentHp;
 
@@ -29,7 +25,6 @@ public class Health : MonoBehaviour
 
     public void LoseHp()
     {
-        Debug.LogError("HI");
         currentHp--;
         if (IsDead)
         {

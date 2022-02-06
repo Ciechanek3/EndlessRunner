@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 289f6b69b515c864c9703bb442775de7, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: a7de01e0714ca654dba4627709d9f8aa, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &93829686 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5544775914317441403, guid: 43896bdb1e4efdc49b5270e94e50d149, type: 3}
-  m_PrefabInstance: {fileID: 5544775915636340440}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a62507b9b02f64f9b8755cdaeef19f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &149912806
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,7 +664,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5544775914455518890, guid: 43896bdb1e4efdc49b5270e94e50d149, type: 3}
   m_PrefabInstance: {fileID: 5544775915636340440}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1953534658}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4822525e99be41040ae7676105f6efc8, type: 3}
@@ -1080,7 +1069,7 @@ MonoBehaviour:
   playerMovement: {fileID: 543519709}
   gameOverCanvas: {fileID: 270640545}
   stateMachineManager: {fileID: 763235742}
-  platformController: {fileID: 93829686}
+  platform: {fileID: 1953534658}
   score: {fileID: 618963522}
 --- !u!1 &1733923574
 GameObject:
@@ -1414,6 +1403,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1953534658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5544775914455518901, guid: 43896bdb1e4efdc49b5270e94e50d149, type: 3}
+  m_PrefabInstance: {fileID: 5544775915636340440}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1958611541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2155931846811414288, guid: 76296f8fae2b803458e12eab98b7ca62, type: 3}
@@ -1741,7 +1735,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6543727010041689478, guid: 6e01b95623793fd46be0ca4b4d47032e, type: 3}
       propertyPath: moveSpeed
-      value: 20
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6543727010041689479, guid: 6e01b95623793fd46be0ca4b4d47032e, type: 3}
       propertyPath: m_Name
