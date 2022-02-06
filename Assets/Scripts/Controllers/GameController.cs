@@ -21,6 +21,8 @@ namespace Game
         private GameObject platform;
         [SerializeField]
         private ScoreController score;
+        [SerializeField]
+        private AudioSource audioSource;
 
         private void OnEnable()
         {
@@ -39,6 +41,7 @@ namespace Game
             playerMovement.enabled = false;
             platform.SetActive(false);
             score.enabled = false;
+            audioSource.gameObject.SetActive(false);
             gameOverCanvas.gameObject.SetActive(true);
         }
 

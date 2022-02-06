@@ -9,6 +9,8 @@ public class Health : MonoBehaviour
     private int startingHp;
     [SerializeField]
     private int invisibilityTime;
+    [SerializeField]
+    private AudioSource audioSource;
 
     private int currentHp;
 
@@ -45,6 +47,7 @@ public class Health : MonoBehaviour
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
             collision.gameObject.SetActive(false);
+            audioSource.Play();
             LoseHp(); 
         }
     }
