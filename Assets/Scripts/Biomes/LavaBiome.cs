@@ -7,6 +7,7 @@ namespace Biome
     {
         public override Type Tick()
         {
+            MovePlatform();
             if (score.CurrentBiomeScore >= ScoreRequired)
             {
                 score.CurrentBiomeScore = 0;

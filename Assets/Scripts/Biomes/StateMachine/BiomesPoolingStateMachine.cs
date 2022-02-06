@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateMachine;
 using System;
+using Platform;
+using System.Linq;
 
 namespace Biome
 {
@@ -15,7 +17,7 @@ namespace Biome
 
         private void InitializeStateMachine()
         {
-            var states = new Dictionary<Type, BaseState>()
+            var states = new Dictionary<Type, BiomesPoolingBaseState>()
         {
             { typeof(DefaultBiome), GetComponent<DefaultBiome>() },
             { typeof(WaterBiome), GetComponent<WaterBiome>() },
@@ -23,6 +25,9 @@ namespace Biome
         };
             StateMachineManager stateMachineManager = GetComponent<StateMachineManager>();
             stateMachineManager.SetStates(states);
+
+            PlatformController platformController = GetComponentInParent<PlatformController>();
+            platformController.InstantiateStartingPlatform(states.Values.First());
         }
     }
 }

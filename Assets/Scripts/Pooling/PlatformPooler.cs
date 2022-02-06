@@ -15,6 +15,11 @@ namespace Platform
 
         public List<PlatformElement> PooledPlatforms { get => pooledPlatforms; }
 
+        private void Start()
+        {
+            InstantiateObjectsToPool();
+        }
+
         public void InstantiateObjectsToPool()
         {
             for (int i = 0; i < biomeType.Platforms.Count; i++)

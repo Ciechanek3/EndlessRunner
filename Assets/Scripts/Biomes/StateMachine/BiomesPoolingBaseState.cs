@@ -1,6 +1,9 @@
 using UnityEngine;
 using Score;
 using Platform;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace StateMachine
 {
@@ -13,15 +16,16 @@ namespace StateMachine
         private PlatformPooler platformPooler;
         [SerializeField]
         protected ScoreController score;
-
+        [SerializeField]
         protected PlatformController platformController;
-
-        private void Awake()
-        {
-            platformController = GetComponentInParent<PlatformController>();
-        }
 
         public int ScoreRequired { get => scoreRequired; set => scoreRequired = value; }
         public PlatformPooler PlatformPooler { get => platformPooler; set => platformPooler = value; }
+
+        protected void MovePlatform()
+        {
+            platformController.MovePlatform(this);
+        }
+    
     }
 }

@@ -11,8 +11,6 @@ namespace Game
         [SerializeField]
         private PlayerMovement playerMovement;
         [SerializeField]
-        private PlatformController platformController;
-        [SerializeField]
         private Canvas gameOverCanvas;
 
         private void OnEnable()
@@ -28,7 +26,6 @@ namespace Game
         private void GameOver()
         {
             playerMovement.enabled = false;
-            platformController.enabled = false;
             gameOverCanvas.gameObject.SetActive(true);
         }
     }

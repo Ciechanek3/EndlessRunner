@@ -21,7 +21,7 @@ namespace Score
 
         private void Awake()
         {
-            currentBiomeScore = 0 + platformController.PlatformsEnabled;
+           // currentBiomeScore = 0 + platformController.PlatformsEnabled;
         }
 
         private void OnEnable()
@@ -31,7 +31,7 @@ namespace Score
 
         private void OnDisable()
         {
-            platformController.OnPlatformDisabled -= AddScore;
+           platformController.OnPlatformDisabled -= AddScore;
         }
 
         private void AddScore()
