@@ -11,6 +11,8 @@ namespace Score
         [SerializeField]
         private TextMeshProUGUI scoreCounter;
         [SerializeField]
+        private TextMeshProUGUI bestScoreCounter;
+        [SerializeField]
         private PlatformController platformController;
 
         private int score = 0;
@@ -21,6 +23,7 @@ namespace Score
 
         private void Awake()
         {
+            bestScoreCounter.text = "Best Score: " + PlayerPrefs.GetInt("BestScore").ToString();
         }
 
         private void OnEnable()
@@ -31,6 +34,11 @@ namespace Score
         private void OnDisable()
         {
            platformController.OnPlatformDisabled -= AddScore;
+            if (Score > PlayerPrefs.GetInt("BestScore"))
+            {
+                PlayerPrefs.SetInt("BestScore", Score);
+                PlayerPrefs.Save();
+            }
         }
 
         private void AddScore()

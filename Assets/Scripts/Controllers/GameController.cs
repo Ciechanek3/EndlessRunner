@@ -2,6 +2,8 @@ using Movement;
 using Platform;
 using StateMachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Score;
 
 namespace Game
 {
@@ -15,6 +17,10 @@ namespace Game
         private Canvas gameOverCanvas;
         [SerializeField]
         private StateMachineManager stateMachineManager;
+        [SerializeField]
+        private PlatformController platformController;
+        [SerializeField]
+        private ScoreController score;
 
         private void OnEnable()
         {
@@ -31,13 +37,25 @@ namespace Game
         private void GameOver()
         {
             playerMovement.enabled = false;
-            //gameOverCanvas.gameObject.SetActive(true);
+            platformController.enabled = false;
+            score.enabled = false;
+            gameOverCanvas.gameObject.SetActive(true);
         }
 
         private void ChangeBackground(BaseState state)
         {
             var currState = state as BiomesPoolingBaseState;
             RenderSettings.skybox = currState.PlatformPooler.BiomeType.Background;
+        }
+
+        public void OnRestartClick()
+        {
+            SceneManager.LoadScene("Gameplay");
+        }
+
+        public void OnQuitClick()
+        {
+            Application.Quit();
         }
     }
 }

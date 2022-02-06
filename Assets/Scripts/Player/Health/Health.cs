@@ -29,6 +29,7 @@ public class Health : MonoBehaviour
 
     public void LoseHp()
     {
+        Debug.LogError("HI");
         currentHp--;
         if (IsDead)
         {
@@ -48,6 +49,7 @@ public class Health : MonoBehaviour
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
+            collision.gameObject.SetActive(false);
             LoseHp(); 
         }
     }
