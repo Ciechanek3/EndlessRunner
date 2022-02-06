@@ -33,7 +33,6 @@ namespace Biome
             { typeof(ForestBiome), GetComponent<ForestBiome>()}
         };
             stateMachineManager = GetComponent<StateMachineManager>();
-            Debug.LogError(states.Values.First());
             stateMachineManager.SetStates(states);
         }
     }

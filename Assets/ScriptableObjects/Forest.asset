@@ -15,4 +15,9 @@ MonoBehaviour:
   platforms:
   - {fileID: 214012863254382868, guid: ece4a95c31897bb4cad73e95da53a603, type: 3}
   - {fileID: 5326149684302662592, guid: 72620b98ed263774db94314722cfe6a4, type: 3}
-  background: []
+  - {fileID: 2000649712990830429, guid: 68488217386f1944989142b2b2327c13, type: 3}
+  - {fileID: 1441231685553982053, guid: b2b49616fa074014fb6d1d14bd5d9c8c, type: 3}
+  - {fileID: 2765996855454334958, guid: 8c1bf49e0d651554f8f73d6650dbadf9, type: 3}
+  - {fileID: 6625342558146134813, guid: 3979c4626ce01044789bd437135da146, type: 3}
+  - {fileID: 988582258647393056, guid: 5ecd4e4e1da220145b216655bdae3928, type: 3}
+  background: {fileID: 2100000, guid: 9c8e0e6cfdc4a8844ae6feda392720de, type: 2}

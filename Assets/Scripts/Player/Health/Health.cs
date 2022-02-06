@@ -48,8 +48,7 @@ public class Health : MonoBehaviour
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
-            LoseHp();
-            
+            LoseHp(); 
         }
     }
 }

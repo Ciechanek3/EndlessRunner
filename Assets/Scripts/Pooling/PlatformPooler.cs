@@ -14,6 +14,7 @@ namespace Platform
         private List<PlatformElement> pooledPlatforms = new List<PlatformElement>();
 
         public List<PlatformElement> PooledPlatforms { get => pooledPlatforms; }
+        public BiomeType BiomeType { get => biomeType; set => biomeType = value; }
 
         private void Start()
         {
@@ -22,7 +23,7 @@ namespace Platform
 
         public void InstantiateObjectsToPool()
         {
-            for (int i = 0; i < biomeType.Platforms.Count; i++)
+            for (int i = 0; i < BiomeType.Platforms.Count; i++)
             {
                 for (int j = 0; j < amountOfObjectsToPool; j++)
                 {
@@ -53,14 +54,14 @@ namespace Platform
 
         public void AddElementToPool(int index)
         {
-            var pooledPlatform = Instantiate(biomeType.Platforms[index], transform);
+            var pooledPlatform = Instantiate(BiomeType.Platforms[index], transform);
             pooledPlatform.gameObject.SetActive(false);
             PooledPlatforms.Add(pooledPlatform);
         }
 
         public void AddRandomElementToPool()
         {
-            var pooledPlatform = Instantiate(biomeType.Platforms[GetRandomPlatformIndex(biomeType.Platforms.Count)], transform);
+            var pooledPlatform = Instantiate(BiomeType.Platforms[GetRandomPlatformIndex(BiomeType.Platforms.Count)], transform);
             pooledPlatform.gameObject.SetActive(false);
             PooledPlatforms.Add(pooledPlatform);
         }

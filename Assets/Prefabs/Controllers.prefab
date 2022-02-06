@@ -124,9 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62a62507b9b02f64f9b8755cdaeef19f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformsEnabled: 8
+  platformsEnabled: 20
   startingPlatform: {fileID: 0}
-  platformSpeed: 15
+  platformSpeed: 30
   mainCamera: {fileID: 0}
   platformStateMachineManager: {fileID: 5544775914455518890}
 --- !u!1 &5544775914455518901
@@ -203,7 +203,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7314f949f98bf034e8336e14166c137f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreRequired: 5
   platformPooler: {fileID: 5544775914627276503}
   score: {fileID: 5544775915322806786}
   platformController: {fileID: 5544775914317441403}
@@ -220,7 +219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19de1a7b4f42b54ca86f03076b9d21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreRequired: 5
   platformPooler: {fileID: 5544775916039618516}
   score: {fileID: 5544775915322806786}
   platformController: {fileID: 5544775914317441403}
@@ -237,7 +235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f332bcd84ef648c4c8784d4d88d63965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreRequired: 5
   platformPooler: {fileID: 5544775915014429955}
   score: {fileID: 5544775915322806786}
   platformController: {fileID: 5544775914317441403}
@@ -254,7 +251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf0540621240f0428867453d0ce96d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreRequired: 0
   platformPooler: {fileID: 7305103307247932895}
   score: {fileID: 5544775915322806786}
   platformController: {fileID: 5544775914317441403}
