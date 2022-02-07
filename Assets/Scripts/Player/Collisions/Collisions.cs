@@ -2,37 +2,41 @@ using UnityEngine;
 using Player;
 using Score;
 
-public class Collisions : MonoBehaviour
+namespace Collisions
 {
-    [SerializeField]
-    private ScoreController scoreController;
-    [SerializeField]
-    private PlayerStats playerStats;
-    [SerializeField]
-    private Health health;
-    [SerializeField]
-    private AudioSource audioSource;
-    [SerializeField]
-    private AudioClip hitAudio;
-    [SerializeField]
-    private AudioClip getMoneyAudio;
-    
-    private void OnCollisionEnter(Collision collision)
+    public class Collisions : MonoBehaviour
     {
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Coin"))
+        [SerializeField]
+        private ScoreController scoreController;
+        [SerializeField]
+        private PlayerStats playerStats;
+        [SerializeField]
+        private Health health;
+        [SerializeField]
+        private AudioSource audioSource;
+        [SerializeField]
+        private AudioClip hitAudio;
+        [SerializeField]
+        private AudioClip getMoneyAudio;
+
+        private void OnCollisionEnter(Collision collision)
         {
-            collision.gameObject.SetActive(false);
-            playerStats.Money++;
-            scoreController.UpdateMoney();
-            audioSource.clip = getMoneyAudio;
-            audioSource.Play();
-        }
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-        {
-            collision.gameObject.SetActive(false);
-            audioSource.clip = hitAudio;
-            audioSource.Play();
-            health.LoseHp();
+            if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Coin"))
+            {
+                collision.gameObject.SetActive(false);
+                playerStats.Money++;
+                scoreController.UpdateMoney();
+                audioSource.clip = getMoneyAudio;
+                audioSource.Play();
+            }
+            if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            {
+                collision.gameObject.SetActive(false);
+                audioSource.clip = hitAudio;
+                audioSource.Play();
+                health.LoseHp();
+            }
         }
     }
 }
+

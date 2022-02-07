@@ -1160,6 +1160,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 543519709}
+    - target: {fileID: 5223310170580301377, guid: 43896bdb1e4efdc49b5270e94e50d149, type: 3}
+      propertyPath: otherAudioSource
+      value: 
+      objectReference: {fileID: 186703836}
     - target: {fileID: 5544775914317441403, guid: 43896bdb1e4efdc49b5270e94e50d149, type: 3}
       propertyPath: mainCamera
       value: 

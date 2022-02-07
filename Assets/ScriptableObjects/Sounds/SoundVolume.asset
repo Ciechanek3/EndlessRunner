@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b9a918e70da0841a99542102cd04f6, type: 3}
-  m_Name: PlayerStats
+  m_Script: {fileID: 11500000, guid: 53b1ba785c6f5df47a1e13b09431cd1a, type: 3}
+  m_Name: SoundVolume
   m_EditorClassIdentifier: 
-  startingHealth: 3
-  money: 1000
-  defaultColor: {r: 1, g: 1, b: 1, a: 0}
-  color: {r: 1, g: 1, b: 1, a: 1}
+  musicVolume: 0.758
+  otherVolume: 0

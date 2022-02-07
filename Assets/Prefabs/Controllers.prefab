@@ -90,9 +90,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStats: {fileID: 11400000, guid: 3bf3b42032f4adf439b2f0d06a191b6e, type: 2}
   playerMaterial: {fileID: 2100000, guid: ffbbabdd65b4f8b4491a84e562d5ea37, type: 2}
-  scoreController: {fileID: 0}
-  audioSource: {fileID: 0}
-  getMoneyAudio: {fileID: 8300000, guid: 04597af5c755f3a48b39e3f81839bc0e, type: 3}
 --- !u!1 &5544775914139133952
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,6 +559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5683683651945680902}
   - component: {fileID: 7050904172991341295}
+  - component: {fileID: 5223310170580301377}
   m_Layer: 0
   m_Name: AudioController
   m_TagString: Untagged
@@ -679,3 +677,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5223310170580301377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6789119898817558062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf99892334d2e7b499ca7e25422254fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicAudioSource: {fileID: 7050904172991341295}
+  otherAudioSource: {fileID: 0}
+  soundVolume: {fileID: 11400000, guid: 2a1e81233f3bb824d87b82fa0c2a6fbc, type: 2}
