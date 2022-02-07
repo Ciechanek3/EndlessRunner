@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Platform;
+using Player;
 
 namespace Score
 {
@@ -13,8 +12,12 @@ namespace Score
         [SerializeField]
         private TextMeshProUGUI bestScoreCounter;
         [SerializeField]
+        private TextMeshProUGUI moneyCounter;
+        [SerializeField]
         private PlatformController platformController;
-
+        [SerializeField]
+        private PlayerStats playerStats;
+        
         private int score = 0;
         private int currentBiomeScore = 0;
 
@@ -24,6 +27,7 @@ namespace Score
         private void Awake()
         {
             bestScoreCounter.text = "Best Score: " + PlayerPrefs.GetInt("BestScore").ToString();
+            moneyCounter.text = "Cash: " + playerStats.Money.ToString();
         }
 
         private void OnEnable()
@@ -41,6 +45,16 @@ namespace Score
             }
         }
 
+        public void UpdateMoney()
+        {
+            moneyCounter.text = "Cash: " + playerStats.Money.ToString();
+        }
+
+        public void ResetScore()
+        {
+            score = 0;
+        }
+
         private void AddScore()
         {
             score++;
@@ -51,11 +65,6 @@ namespace Score
         private void SetScoreOnUI()
         {
             scoreCounter.text = "Score: " + Score.ToString();
-        }
-
-        public void ResetScore()
-        {
-            score = 0;
         }
     }
 }

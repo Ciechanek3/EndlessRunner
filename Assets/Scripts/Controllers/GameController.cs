@@ -4,6 +4,7 @@ using StateMachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Score;
+using Player;
 
 namespace Game
 {
@@ -54,6 +55,11 @@ namespace Game
         public void OnRestartClick()
         {
             SceneManager.LoadScene("Gameplay");
+        }
+
+        public void OnMenuClick()
+        {
+            SceneManager.LoadScene("Menu");
         }
 
         public void OnQuitClick()
