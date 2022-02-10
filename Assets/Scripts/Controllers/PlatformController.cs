@@ -24,8 +24,6 @@ namespace Platform
 
         private int biomesLength;
         private float platformSpeedMultiplier = 1;
-        private float differenceValue = 0;
-        private bool shouldAssignDifferenceValue = true;
         private List<PlatformElement> platformElements = new List<PlatformElement>();
 
         public int PlatformsEnabled { get => platformsEnabled; set => platformsEnabled = value; }
@@ -35,16 +33,6 @@ namespace Platform
         private void Awake()
         {
             BiomesLength = platformsEnabled;
-        }
-
-        private void OnEnable()
-        {
-            platformStateMachineManager.OnStateChanged += ResetDifferenceFlag;
-        }
-
-        private void OnDisable()
-        {
-            platformStateMachineManager.OnStateChanged += ResetDifferenceFlag;
         }
 
         public void InstantiateStartingPlatform(BiomesPoolingBaseState firstState)
@@ -75,9 +63,5 @@ namespace Platform
             platformElements.RemoveAt(0);
         }
         
-        public void ResetDifferenceFlag(BaseState state)
-        {
-            shouldAssignDifferenceValue = true;
-        }
     }
 }

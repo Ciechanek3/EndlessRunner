@@ -30,15 +30,6 @@ public class ShopController : MonoBehaviour
         playerStats.OnStartingHealthChanged -= UpdateHpPriceText;
     }
 
-    public void ChangePlayerColor(Color color, int price)
-    {
-        if(playerStats.Money >= price)
-        {
-            playerStats.color = color;
-            playerStats.Money -= price;
-        }
-    }
-
     public void BuyHealth()
     {
         AddHealth(CalculateHpPrice());
@@ -53,28 +44,25 @@ public class ShopController : MonoBehaviour
         }
     }
 
+    private int CalculateHpPrice()
+    {
+        return (playerStats.StartingHealth - 2) * healthPriceMultiplier;
+    }
+
     public void UpdateTexts()
     {
         UpdateHpPriceText(0);
         UpdateMaxHpText(playerStats.StartingHealth);
         UpdateMoneyText(playerStats.Money);
     }
-
-    private int CalculateHpPrice()
-    {
-        return (playerStats.StartingHealth - 2) * healthPriceMultiplier;
-    }
-
     private void UpdateHpPriceText(int value)
     {
         hpPriceText.text = "Cost: " + CalculateHpPrice().ToString();
     }
-
     private void UpdateMaxHpText(int value)
     {
         startingHpText.text = "Current max hp: " + value.ToString();
     }
-
     private void UpdateMoneyText(int value)
     {
         currMoneyText.text = "Cash: " + value.ToString();

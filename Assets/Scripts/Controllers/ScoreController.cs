@@ -22,7 +22,16 @@ namespace Score
         private int currentBiomeScore = 0;
 
         public int CurrentBiomeScore { get => currentBiomeScore; set => currentBiomeScore = value; }
-        public int Score { get => score; }
+        public int Score 
+        { 
+            get => score;
+            set
+            {
+                score = value;
+                SetScoreOnUI();
+            }
+
+        }
 
         private void Awake()
         {
@@ -58,8 +67,6 @@ namespace Score
         private void AddScore()
         {
             score++;
-            currentBiomeScore++;
-            SetScoreOnUI();
         }
 
         private void SetScoreOnUI()

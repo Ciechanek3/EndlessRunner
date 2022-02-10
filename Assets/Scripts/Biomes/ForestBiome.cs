@@ -17,7 +17,7 @@ namespace StateMachine
             }
             else
             {
-                playerMovement.MoveSpeedMultiplier = 1.2f;
+                playerMovement.MoveSpeedMultiplier = 1.0f;
             }
             return result;
         }

@@ -32,6 +32,13 @@ namespace Platform
             }
         }
 
+        public void AddElementToPool(int index)
+        {
+            var pooledPlatform = Instantiate(BiomeType.Platforms[index], transform);
+            pooledPlatform.gameObject.SetActive(false);
+            PooledPlatforms.Add(pooledPlatform);
+        }
+
         public PlatformElement GetRandomObjectFromPool(Transform transform)
         {
             if (PooledPlatforms.Count < 1)
@@ -46,24 +53,17 @@ namespace Platform
             return pooledPlatform;
         }
 
-        public void ReturnObjectToPool(PlatformElement platform)
-        {
-            PooledPlatforms.Add(platform);
-            platform.gameObject.SetActive(false);
-        }
-
-        public void AddElementToPool(int index)
-        {
-            var pooledPlatform = Instantiate(BiomeType.Platforms[index], transform);
-            pooledPlatform.gameObject.SetActive(false);
-            PooledPlatforms.Add(pooledPlatform);
-        }
-
         public void AddRandomElementToPool()
         {
             var pooledPlatform = Instantiate(BiomeType.Platforms[GetRandomPlatformIndex(BiomeType.Platforms.Count)], transform);
             pooledPlatform.gameObject.SetActive(false);
             PooledPlatforms.Add(pooledPlatform);
+        }
+
+        public void ReturnObjectToPool(PlatformElement platform)
+        {
+            PooledPlatforms.Add(platform);
+            platform.gameObject.SetActive(false);
         }
 
         private int GetRandomPlatformIndex(int max)

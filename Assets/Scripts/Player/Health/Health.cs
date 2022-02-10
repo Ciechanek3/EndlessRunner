@@ -37,14 +37,6 @@ namespace Player
             }
         }
 
-        public void GainHealth()
-        {
-            if (currentHp < 5)
-            {
-                currentHp++;
-            }
-        }
-
         private void UpdateHpUI()
         {
             hpText.text = "HP left: " + currentHp.ToString();
